@@ -4,4 +4,13 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr ;
   grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+@media (min-width: 600px) {
+  .card-list { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .card-list { grid-template-columns: repeat(4, 1fr); }
 }
