@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
 import CardList from './components/card-list/CardList.component';
-import './components/card/card.style.css'
+import './components/card/card.style.css';
 
 class App extends Component {
   constructor(props) {
@@ -13,15 +13,15 @@ class App extends Component {
   }
   componentDidMount() {
     axios
-      .get('https://jsonplaceholder.typicode.com/users')
-      .then((res) => this.setState({ monsters: res.data }));
+      .get(`https://jsonplaceholder.typicode.com/users`)
+      .then(({ data }) => this.setState({ monsters: data }));
   }
 
   render() {
     return (
       <div className='App'>
         <div className='card-list'>
-          <CardList monsters={this.state.monsters}/>
+          <CardList monsters={this.state.monsters} />
         </div>
       </div>
     );
