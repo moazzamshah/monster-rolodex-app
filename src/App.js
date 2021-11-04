@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
-// import Test from './components/Test';
+import CardList from './components/card-list/CardList.component';
+import './components/card/card.style.css'
 
 class App extends Component {
   constructor(props) {
@@ -19,9 +20,9 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        {this.state.monsters.map((user) => (
-          <h2 key={user.id}> {user.name} </h2>
-        ))}
+        <div className='card-list'>
+          <CardList monsters={this.state.monsters}/>
+        </div>
       </div>
     );
   }
