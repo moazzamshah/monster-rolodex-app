@@ -1,42 +1,37 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
 import CardList from './components/card-list/CardList.component';
 import './components/card/card.style.css';
 import SearchBox from './components/searchBox/SearchBox.component';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      monsters: [],
-      searchField: '',
-    };
-  }
-  componentDidMount() {
+const App = () => {
+  const [monsters, setMonsters] = useState([]);
+
+  const [searchField, setSearchField] = useState('');
+
+  useEffect(() => {
     axios
       .get(`https://jsonplaceholder.typicode.com/users`)
-      .then(({ data }) => this.setState({ monsters: data }));
-  }
+      .then(({ data }) => setMonsters(data));
+  }, []);
 
-  render() {
-    const { monsters, searchField } = this.state;
-    const filteredMonsters = monsters.filter((monster) =>
-      monster.name.toLowerCase().includes(searchField.toLowerCase())
-    );
-    return (
-      <div className='App'>
+  const filteredMonsters = monsters.filter((monster) =>
+    monster.name.toLowerCase().includes(searchField.toLowerCase())
+  );
+
+  return (
+    <div className='App'>
       <h1> Monster Rolodex </h1>
-        <SearchBox
-          handleChange={(e) => this.setState({ searchField: e.target.value })}
-          placeholder='Search monsters'
-        />
-        <div className='card-list'>
-          <CardList monsters={filteredMonsters} />
-        </div>
+      <SearchBox
+        handleChange={(e) => setSearchField(e.target.value)}
+        placeholder='Search monsters'
+      />
+      <div className='card-list'>
+        <CardList monsters={filteredMonsters} />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default App;
